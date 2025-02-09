@@ -71,6 +71,8 @@ import { binancePlugin } from "@elizaos/plugin-binance";
 import { birdeyePlugin } from "@elizaos/plugin-birdeye";
 import { bittensorPlugin } from "@elizaos/plugin-bittensor";
 import { bnbPlugin } from "@elizaos/plugin-bnb";
+import { arbitrumPlugin } from "@elizaos/plugin-arbitrum";
+import { ethereumPlugin } from "@elizaos/plugin-ethereum";
 import {
     advancedTradePlugin,
     coinbaseCommercePlugin,
@@ -1255,9 +1257,17 @@ export async function createAgent(
             getSecret(character, "NVIDIA_NGC_API_KEY")
                 ? nvidiaNimPlugin
                 : null,
+            getSecret(character, "ETHEREUM_PRIVATE_KEY") ||
+            getSecret(character, "ETHEREUM_PUBLIC_KEY")?.startsWith("0x")
+                ? ethereumPlugin
+                : null,
             getSecret(character, "BNB_PRIVATE_KEY") ||
             getSecret(character, "BNB_PUBLIC_KEY")?.startsWith("0x")
                 ? bnbPlugin
+                : null,
+            getSecret(character, "ARBITRUM_PRIVATE_KEY") ||
+            getSecret(character, "ARBITRUM_PUBLIC_KEY")?.startsWith("0x")
+                ? arbitrumPlugin
                 : null,
             (getSecret(character, "EMAIL_INCOMING_USER") &&
                 getSecret(character, "EMAIL_INCOMING_PASS")) ||
